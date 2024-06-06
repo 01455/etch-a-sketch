@@ -1,16 +1,13 @@
 const containerDiv = document.querySelector('#container')
 
 function createDivs(num) {
-    let total = num * num;
-    containerDiv.style.width = `${total}px`;
-    containerDiv.style.height = `${total}px`;
-    for (let totalDivs = 1; totalDivs <= total; totalDivs++) {
+    const divSize = containerDiv.clientHeight / num
+    console.log(divSize)
+    for (let totalDivs = 1; totalDivs <= num * num; totalDivs++) {
         let div = document.createElement('div');
         div.classList.add('gridDiv');
-        div.style.border = '1px solid gray';
-        div.style.boxSizing = 'border-box';
-        div.style.setProperty('width', `calc(100% / ${num})`);
-        div.style.setProperty('height', `calc(100% / ${num})`);
+        div.style.width = `${divSize}px`
+        div.style.height = `${divSize}px`
         containerDiv.appendChild(div);
         console.log(`appended div nr ${totalDivs}`);
     }
