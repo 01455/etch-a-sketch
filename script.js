@@ -31,3 +31,10 @@ function addListeners() {
     }
 }
 
+gridBtn.addEventListener('click', () => {
+    let userNum = +prompt('Enter the number of squares you wish to have per side (max 100)', 16)
+    if (typeof userNum == 'number' && userNum <= 100) {
+        createDivs(userNum)
+        addListeners()
+    }
+})
