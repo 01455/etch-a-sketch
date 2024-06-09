@@ -1,14 +1,16 @@
 const containerDiv = document.querySelector('#container')
 const gridBtn = document.createElement('button')
-gridBtn.innerText = 'Set number of squares per side'
+gridBtn.innerText = 'Set number of squares per side (reset)'
 gridBtn.classList.add('btn')
 containerDiv.insertAdjacentElement('beforebegin', gridBtn)
+const trailSelect = document.querySelector('#trail-select')
+let userTrailChoice = ''
 
 function createDivs(num) {
     
     const divSize = containerDiv.clientHeight / num
 
-    console.log(`Calculated div size: ${divSize}px`);
+    // console.log(`Calculated div size: ${divSize}px`);
 
     containerDiv.innerHTML = '';
 
@@ -18,15 +20,24 @@ function createDivs(num) {
         div.style.width = `${divSize}px`
         div.style.height = `${divSize}px`
         containerDiv.appendChild(div);
-        console.log(`appended div nr ${totalDivs}`);
+        // console.log(`appended div nr ${totalDivs}`);
     }
 }
 
+
 function addListeners() {
     const gridDivElements = document.querySelectorAll('.gridDiv')
-    for (divElement of gridDivElements) {
+    for (let divElement of gridDivElements) {
         divElement.addEventListener('mouseover', (e) => {
-            e.currentTarget.style.backgroundColor = 'black';
+            if (userTrailChoice == 'black') {
+                e.currentTarget.style.backgroundColor = 'black'
+            }
+            if (userTrailChoice == 'rgb') {
+                e.currentTarget.style.backgroundColor = randomRgbColor()
+            }
+            if (userTrailChoice == '') {
+                trailSelect.showPicker()
+            }
         })
     }
 }
@@ -38,3 +49,20 @@ gridBtn.addEventListener('click', () => {
         addListeners()
     }
 })
+
+trailSelect.addEventListener('click', function() {
+    if (this.value == 'black') {
+        userTrailChoice = 'black'
+    }
+    if (this.value == 'rgb') {
+        userTrailChoice = 'rgb'
+    }
+})
+
+
+const randomRgbColor = () => {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+};  
